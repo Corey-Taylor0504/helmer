@@ -1,0 +1,113 @@
+.logo-menu-section{
+	background: #D3D3D3;
+}
+.token-box{
+	background: white;
+}
+#token-form{
+	position: relative;
+}
+.token-title{
+	color: #000; 
+	font-weight: bolder;
+}
+#content{
+	resize: none; 
+	border-radius: 0px;
+}
+.save-token{
+	background: #FF6600;
+	color: #fff;
+}
+#clipboard{
+	background: white;
+	position: absolute; 
+	bottom: 75px; 
+	right: -40px
+}
+.home-title{
+	color: #FF6600;
+}
+.home-title span{
+	border-bottom: 2px dashed #D3D3D3;
+}
+/*#login-column{
+	box-shadow: 10px 10px 8px 10px #888888;
+}*/
+#login-form h3{
+	font-weight: bolder;
+}
+#login .login-wrapper #login-row #login-column #login-box {
+  	margin-top: 30px;
+  	margin-left: 25px;
+  	max-width: 400px;
+  	border: 1px solid #9C9C9C;
+  	/*background-color: #D3D3D3;*/
+}
+#login #login-row #login-column #login-box #login-form {
+  	padding: 20px;
+}
+.login-btn{
+	background: #FF6600;
+	color: #fff;
+}
+#logout{
+	float: right;
+	margin-top: 10px;
+	margin-right: 20px;
+}
+.dropbtn {
+  color: #007bff;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  margin-top: 15px;
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+
+/*#login-row{
+	position:absolute;
+	top:50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+#login-column{
+	background-size: 100% 100%;
+	margin: auto auto;
+}*/
+
+/*#login .container #login-row #login-column #login-box #login-form #register-link {
+  margin-top: -85px;
+}*/

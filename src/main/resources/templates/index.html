@@ -1,0 +1,41 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <title>Login Page</title>
+    <link rel="icon" th:href="@{/image/logo.png}" type="image/icon type">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/font-awesome/all.min.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/font-awesome/all.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/cloud.js}"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row mt-4">
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h3 class="home-title mt-4 token-title text-center"><span class="pb-2">Cloud Security Engineering</span></h3>
+            <div id="login">
+                <div class="login-wrapper">
+                    <div id="login-row" class="row justify-content-center align-items-center">
+                        <div id="login-column" class="col-md-5">
+                            <div id="login-box" class="col-md-12">
+                                <form action="login-home" method="post" id="loginForm">
+                                    <h3 class="text-center">Login</h3>
+                                    <div class="form-group">
+                                        <input type="button" name="button" class="btn btn-block login-btn" value="Sign SSO" onclick="ssoLogin()">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

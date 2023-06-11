@@ -1,0 +1,138 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+	<title>Cloud Page</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="stylesheet" th:href="@{/font-awesome/all.min.css}">
+	<script th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/font-awesome/all.min.js}"></script>
+	<script th:src="@{/js/clipboard.min.js}"></script>
+	<script type="text/javascript" th:src="@{/js/cloud.js}"></script>
+	<script type="text/javascript">
+	$(function() {
+		new Clipboard('.copy-text');
+	});
+</script>
+</head>
+<body onload="getProject()">
+		<div class="container">
+		<div class="row mt-4">
+			<div class="col-lg-12">
+				<div class="logo-menu-section">
+				</div>
+			</div>
+		</div>	
+		<div class="row">
+			<div class="col-lg-12">
+        	<h3 class="home-title mt-4 token-title text-center"><span class="pb-2">Cloud Security Engineering</span></h3>
+				<div align="center"><span class="pb-2" th:text="${responseFlag}"></span></div>
+				<div align="center" th:if="${responseData}">
+					<div><b>GCP Project ID:</b> <span class="pb-2" th:text="${responseData.gcpProjectId}"></span></div>
+					<div><b>Sub Experience:</b> <span class="pb-2" th:text="${responseData.subExperience}"></span></div>
+					<div><b>Sub Experience Owner:</b> <span class="Cloudpb-2" th:text="${responseData.subExperienceOwner}"></span></div>
+					<input type="hidden" name="gcpId" id="gcpId" th:value="${responseData.gcpProjectId}"/>
+					<input type="hidden" name="clusterHiddenId" id="clusterHiddenId"  th:value="${responseData.clusterName}"/>
+					<div class="form-group" th:if="${responseData}">
+						<label for="cluster" class=""><b>ClusterId:</b> <font color="red">*</font></label><br>
+						<div id="clipboard4">
+							<textarea class="form-control" rows="1" id="clusterId" th:text="${responseData.clusterId}"></textarea>
+							<a href="javascript:void(0);" class="copy-text" data-clipboard-target="#clusterId"><i class="far fa-clone fa-2x"></i></a>
+						</div>
+					</div>
+					<div class="form-group" th:if="${helmFlag}">
+						<label for="cluster" class=""><b>HELM Chart Url:</b> <font color="red">*</font></label><br>
+						<div id="clipboard1">
+							<textarea class="form-control" rows="1" id="chartUrl" th:text="${responseData.helmChartUrl}"></textarea>
+							<a href="javascript:void(0);" class="copy-text" data-clipboard-target="#chartUrl"><i class="far fa-clone fa-2x"></i></a>
+						</div>
+					</div>
+					<div class="form-group" th:if="${responseData}">
+						<label for="cluster" class=""><b>Admission Cert:</b> <font color="red">*</font></label><br>
+						<div id="clipboard2">
+							<textarea class="form-control" rows="5" id="admissioncert" th:text="${responseData.admissionCert}"></textarea>
+							<a href="javascript:void(0);" class="copy-text" data-clipboard-target="#admissioncert"><i class="far fa-clone fa-2x"></i></a>
+						</div>
+					</div>
+					<div class="form-group" th:if="${responseData}">
+						<label for="cluster" class=""><b>Admission Key:</b> <font color="red">*</font></label><br>
+						<div id="clipboard3">
+							<textarea class="form-control" rows="5" id="admissionkey" th:text="${responseData.admissionKey}"></textarea>
+							<a href="javascript:void(0);" class="copy-text" data-clipboard-target="#admissionkey"><i class="far fa-clone fa-2x"></i></a>
+						</div>
+					</div>
+				</div>
+				<div align="center" th:if="${responseData}">
+					<div class="form-group">
+						<input type="button" name="submit" class="btn btn-block login-btn" value="Exit" onclick="goBack()">
+					</div>
+					<div class="form-group" th:if="${deleteFlag}">
+						<input type="button" name="delete" class="btn btn-block login-btn" value="Delete" onclick="deleteCluster()">
+					</div>
+					<div class="form-group" th:if="${upgradeFlag}">
+						<input type="button" name="upgrade" class="btn btn-block login-btn" value="Upgrade" onclick="upgradeCluster()">
+					</div>
+				</div>
+				<div id="login" th:if="${responseData==null}">
+			        <div class="login-wrapper">
+			            <div id="login-row" class="row justify-content-center align-items-center">
+			                <div id="login-column" class="col-md-5">
+			                    <div id="login-box" class="col-md-12">
+			                        <form action="cloudData" method="post" id="cloudForm" onsubmit="return validateFields()">
+										<div class="form-group">
+											<label for="projectId" class="">GCP ProjectId: <font color="red">*</font></label><br>
+											<input type="text" name="projectId" id="projectId" class="form-control" placeholder="Enter Your ProjectId">
+										</div>
+										<div class="form-group">
+											<label for="cluster" class="">Cluster: <font color="red">*</font></label><br>
+											<input type="text" name="cluster" id="cluster" class="form-control" placeholder="Enter Your Cluster">
+											<input type="hidden" name="searchFlag" id="searchFlag"  value="false"/>
+										</div>
+										<div class="form-group">
+											<label for="experience" class="">Sub Experience: <font color="red">*</font></label><br>
+											<input type="text" name="experience" id="experience" class="form-control" placeholder="Enter Your Sub Experience">
+										</div>
+										<div class="form-group">
+											<label for="owner" class="">Sub Experience Owner: <font color="red">*</font></label><br>
+											<input type="text" name="owner" id="owner" class="form-control" placeholder="Enter Your Sub Experience Owner">
+										</div>
+										<div class="form-group">
+											<label for="env">Environment: <font color="red">*</font> </label>
+											<select name="env" id="env" class="form-control" onchange="getAddress()">
+												<option value="prd">PROD</option>
+												<option value="np">NONPROD</option>
+											</select>
+										</div>
+			                            <div class="form-group">
+			                                <label for="project">Cloud Provider: <font color="red">*</font> </label>
+											<select name="project" id="project" class="form-control"  onchange="getAddress()">
+											</select>
+			                            </div>
+			                            <div class="form-group">
+			                                <label for="address" class="">Address:<font color="red">*</font></label><br>
+			                                <select name="address"   id="address" class="form-control">
+			                                </select>
+			                            </div>
+										<div class="form-group">
+											<label for="env">CRI: <font color="red">*</font> </label>
+											<select name="cli" id="cli" class="form-control"  onmouseover="">
+												<option value="true" title="Please run 'kubectl get nodes -o wide to check your kubernetes nodes applicable runtime. If the node runtime shows containerd or cri-o then select 'True'. If the node runtime is 'Docker' select 'False'">TRUE</option>
+												<option value="false" title="Please run 'kubectl get nodes -o wide to check your kubernetes nodes applicable runtime. If the node runtime shows containerd or cri-o then select 'True'. If the node runtime is 'Docker' select 'False'">FALSE</option>
+											</select>
+										</div>
+			                            <div class="form-group">
+			                                <input type="submit" name="generate" class="btn btn-block login-btn" value="GeneratePackage" />
+                                            <input type="button" name="search" id="search" class="btn btn-block login-btn" value="Search" onclick="searchCluster()"/>
+			                            </div>
+			                        </form>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
